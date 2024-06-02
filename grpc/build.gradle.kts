@@ -24,9 +24,11 @@ dependencies {
     implementation ("io.grpc:grpc-protobuf:${grpcVersion}")
     implementation ("io.grpc:grpc-services:${grpcVersion}")
     implementation ("io.grpc:grpc-stub:${grpcVersion}")
+    implementation("io.opentelemetry:opentelemetry-exporter-otlp")
+    implementation("io.opentelemetry:opentelemetry-exporter-logging")
     implementation ("com.google.protobuf:protobuf-java-util:3.25.3")
     implementation ("io.opentelemetry.instrumentation:opentelemetry-grpc-1.6:1.32.0-alpha")
-    implementation ("com.google.guava:guava:33.2.1-jre")
+    implementation ("com.google.guava:guava:33.2.0-jre")
 
     implementation("io.opentelemetry:opentelemetry-api")
     implementation("io.opentelemetry:opentelemetry-sdk")

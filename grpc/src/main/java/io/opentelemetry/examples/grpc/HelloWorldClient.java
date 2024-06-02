@@ -20,21 +20,20 @@ public class HelloWorldClient {
 
   private static final Logger logger = Logger.getLogger(HelloWorldClient.class.getName());
   private static final OpenTelemetry openTelemetry =
-      ExampleConfiguration.initializeOpenTelemetry("localhost", 9411);
+          // 不同的初始化 将数据导出到不同的地方
+          ExampleConfiguration.initOpenTelemetryOtelExport();
   private final ManagedChannel channel;
   private final GreeterGrpc.GreeterBlockingStub blockingStub;
 
-  // OTel Tracing API
-  private final Tracer tracer =
-      openTelemetry.getTracer("io.grpc.examples.helloworld.HelloWorldClient");
 
   public HelloWorldClient() {
     GrpcTelemetry grpcTelemetry = GrpcTelemetry.create(openTelemetry);
     this.channel =
-        ManagedChannelBuilder.forAddress("localhost", 50051)
-            .usePlaintext()
-            .intercept(grpcTelemetry.newClientInterceptor())
-            .build();
+            ManagedChannelBuilder.forAddress("localhost", 50051)
+                    .usePlaintext()
+                    // 使用 GRPC intercept 自动处理 请求 tracing
+                    .intercept(grpcTelemetry.newClientInterceptor())
+                    .build();
     this.blockingStub = GreeterGrpc.newBlockingStub(this.channel);
   }
 
