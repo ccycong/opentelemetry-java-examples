@@ -69,7 +69,7 @@ public final class HttpServer {
       //  以及  .setParent(context)
       tracer
               .spanBuilder("GET /")
-
+              .setParent(context)
               .setSpanKind(SpanKind.SERVER)
               .startAndRun(
                       () -> {
